@@ -143,10 +143,10 @@ Seçilen üçüncü taraf modüller için `00_startup/third-party-manifest.md` d
 
 `mcp-logseq` modülü seçildiyse (LogSeq 2.0 DB tabanlı Memory Bank için):
 
-1. LogSeq graph içinde `Projects/<ProjeAdı>/` namespace'ini oluştur.
+1. LogSeq graph içinde projenin sayfalarını oluştur. (LogSeq 2.0 DB mimarisinde katı klasör/namespace yerine **properties** esastır).
 2. `MemoryBank` (hub) + alt sayfaları (`projectbrief`, `productContext`, `systemPatterns`, `techContext`, `activeContext`, `progress`, `project`) MCP ile oluştur.
 3. Adım 6'daki Markdown içeriklerini bu sayfalara aktar; sayfaları `[[wikilink]]` ile bağla.
-4. Sayfalara **properties ekle (JSON formatında: `tags: ["..."], status: "active", project: "<ProjeAdı>"`)**.
+4. Sayfalara **ilişkisel properties ekle (`project:: [[ProjeAdı]]`, `parent:: [[MemoryBank]]`, `tags:: [...]`, `status:: active`)**.
 5. `.opencode/opencode.json` içinde `mcp-logseq` konfigürasyonunu doğrula (manifest §3.2).
 
 > **Çift mod:** AI, LogSeq açıkken MCP ile (birincil), kapalıyken `.project-docs/20_memory-bank/` Markdown dosyalarıyla (fallback) Memory Bank'a erişir. Senkronizasyon: **elle** (export → git commit). Otomasyon (git hook) ileride değerlendirilecek — bkz. `resources/memory-bank.md` §6.
@@ -185,7 +185,7 @@ Kurulum şunlar sağlandığında başarılıdır:
 
 - [ ] `.project-docs/` kanonik yapısı kuruldu.
 - [ ] Memory Bank 7 core dosyası `.project-docs/20_memory-bank/` altında mevcut.
-- [ ] (mcp-logseq seçildiyse) LogSeq graph'ta `Projects/<ProjeAdı>/` namespace'i + MemoryBank sayfaları oluşturuldu.
+- [ ] (mcp-logseq seçildiyse) LogSeq graph'ta MemoryBank sayfaları oluşturuldu ve `project::` / `parent::` ilişkileri kuruldu.
 - [ ] Kökte `AGENTS.md` mevcut ve proje bilgilerini içeriyor.
 - [ ] `.opencode/opencode.json` `instructions` referansı doğru.
 - [ ] Seçilen üçüncü taraf modüller en güncel sürümle kuruldu.

@@ -143,11 +143,11 @@ Seçtiğiniz modüller için:
 
 ### Adım 6b — LogSeq Entegrasyonu (mcp-logseq Seçildiyse)
 **LogSeq AÇIK OLMALI.** AI şunları yapar:
-1. LogSeq graph'ta `Projects/<ProjeAdı>/` namespace'ini oluşturur
-2. `MemoryBank` (hub) + 7 alt sayfayı MCP ile oluşturur
-3. Markdown içeriklerini sayfalara aktarır
-4. Sayfaları `[[wikilink]]` ile bağlar
-5. Sayfalara **properties** ekler (JSON formatında: `tags: ["blazor", "sqlite"]`, `status: "active"`, `project: "<ProjeAdı>"`)
+1. LogSeq 2.0 DB mimarisine uygun olarak sayfaları oluşturur (katı klasör/namespace yerine `project::` ve `parent::` özellikleri esas alınır).
+2. `MemoryBank` (hub) + 7 alt sayfayı MCP ile oluşturur.
+3. Markdown içeriklerini sayfalara aktarır.
+4. Sayfaları `[[wikilink]]` ile bağlar.
+5. Sayfalara **properties ekler (`project:: [[ProjeAdı]]`, `parent:: [[MemoryBank]]`, `tags:: ["blazor", "sqlite"]`, `status:: active`)**.
 
 > **Not:** Bu adım LogSeq açıkken çalışır. Kapalıysa sadece Markdown dosyaları üretilir (fallback).
 
@@ -160,7 +160,7 @@ Kök dizine `AGENTS.md` yazılır. İçerisinde:
 ### Adım 8 — Doğrulama ve Özet
 AI kurulum raporu verir:
 - Ne kuruldu, hangi sürümler
-- LogSeq namespace'i
+- LogSeq DB yapısı ve properties (`project::`, `parent::`)
 - `00_startup/` kitini saklamak mı silmek mi? (Öneri: saklayın)
 
 ---
@@ -198,8 +198,7 @@ yeni-proje/
 
 ### LogSeq Graph'ta (Canlı Katman)
 ```
-Projects/<ProjeAdı>/
-├── MemoryBank
+MemoryBank (hub page)
 ├── projectbrief
 ├── productContext
 ├── systemPatterns
@@ -208,7 +207,7 @@ Projects/<ProjeAdı>/
 ├── progress
 └── project
 ```
-Tümü `[[wikilink]]` ile birbirine bağlı, **properties (JSON: `tags: ["..."], status: "active", project: "<ProjeAdı>"`)** ile etiketlenmiş.
+Tümü `[[wikilink]]` ile birbirine bağlı, **properties (`project:: [[ProjeAdı]]`, `parent:: [[MemoryBank]]`, `tags:: [...]`)** ile etiketlenmiş.
 
 ---
 
@@ -260,7 +259,7 @@ opencode
 # 6. Sorduğu bilgileri ver, modül seç, bekle
 
 # 7. Bittiğinde:
-#    - LogSeq'te Projects/<ProjeAdı>/ kontrol et
+#    - LogSeq'te projenin MemoryBank sayfalarını kontrol et (`project::` / `parent::`)
 #    - .project-docs/20_memory-bank/ git commit et
 ```
 

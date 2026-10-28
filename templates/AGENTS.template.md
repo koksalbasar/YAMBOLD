@@ -20,7 +20,7 @@ Her işlem başlangıcında ve her yeni oturumda bu dokümanın talimatlarına g
    - İş planı ya da istenen raporu bu klasörde oluştur.
 2. **Memory Bank'i oku** (LogSeq 2.0 DB tabanlı, çift mod):
    - **LogSeq açıksa (birincil):** LogSeq MCP (`mcp-logseq`) ile oku:
-     - `get_pages_tree_from_namespace` → `Projects/<ProjeAdı>` sayfa ağacı
+     - `query` (LogSeq DB QL) → `project:: [[{{PROJE_ADI}}]]` etiketli sayfaları sorgula
      - `get_page_content` → ilgili sayfalar (`projectbrief`, `productContext`, `systemPatterns`, `techContext`, `activeContext`, `progress`, `project`)
      - `get_page_backlinks` → bağlantıları keşfet
    - **LogSeq kapalıysa (fallback):** `.project-docs/20_memory-bank/` altındaki export edilmiş Markdown dosyalarını oku:

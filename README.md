@@ -47,7 +47,7 @@ opencode
 #    Kurulum otomatik tamamlanır.
 
 # 7. Bittiğinde:
-#    - LogSeq'te Projects/<ProjeAdı>/ kontrol edin
+#    - LogSeq'te projenin MemoryBank sayfalarını (`project::` / `parent::` ilişkili) kontrol edin
 #    - .project-docs/20_memory_bank/ git commit edin
 ```
 
@@ -146,8 +146,7 @@ yeni-proje/
 
 **LogSeq Graph'ta (canlı katman, mcp-logseq seçildiyse):**
 ```
-Projects/<ProjeAdı>/
-├── MemoryBank
+MemoryBank (hub page)
 ├── projectbrief
 ├── productContext
 ├── systemPatterns
@@ -156,7 +155,7 @@ Projects/<ProjeAdı>/
 ├── progress
 └── project
 ```
-Tümü `[[wikilink]]` ile bağlı, **properties** (`tags`, `status`, `project`) ile etiketlenmiş.
+Tümü `[[wikilink]]` ile bağlı, **properties** (`project:: [[ProjeAdı]]`, `parent:: [[MemoryBank]]`) ile etiketlenmiş.
 
 ---
 

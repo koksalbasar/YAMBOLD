@@ -22,23 +22,27 @@ AI, oturumlar arasında hafızasını kaybeder. Memory Bank, projenin kalıcı b
 
 > **Not:** LogSeq 2.0, Markdown dosyalarını *birincil kaynak* olarak değil **DB** olarak kullanır. Markdown, DB'den **export** edilerek elde edilir. Bu yüzden "canlı kaynak" DB'dir; Markdown bir **yedek/fallback** katmanıdır.
 
-## 3. Namespace Yapısı
+## 3. Namespace ve İlişkisel Yapı (LogSeq 2.0 DB)
 
-Proje bilgisi, LogSeq graph içinde `Projects/<ProjeAdı>/` namespace'i altında tutulur. Ayrı graph açılmaz; namespace yeterlidir.
+> **Mimari Notu:** LogSeq 2.0 (DB sürümü), SQLite tabanlı ilişkisel yapı kullandığı için Markdown dönemindeki katı "klasör/dosya yolu" mantığı (`Projects/<ProjeAdı>/...`) yerine **nesne ilişkileri (Properties, Tags, Classes)** ve **DB Queries** yaklaşımını benimser.
+
+Proje bilgisi LogSeq'te iki yönlü ele alınır:
+1. **İlişkisel Özellikler (Properties - Önerilen):** Her sayfa `project:: [[ProjeAdı]]`, `parent:: [[MemoryBank]]`, `category::` gibi özellikler (properties) ile birbirine bağlanır. Bu sayede bir not birden fazla üst kavramla veya projeyle esnek şekilde ilişkilendirilebilir.
+2. **Sayfalandırma / Etiket İsimlendirme (`/` Kullanımı):** Sayfa adlarında `Projects/<ProjeAdı>/MemoryBank` biçiminde eğik çizgi kullanılmaya devam edilebilir, ancak DB bunu fiziksel dosya yolu olarak değil benzersiz bir sayfa adı/etiketi olarak ele alır.
 
 ```
-Projects/<ProjeAdı>/
-├── MemoryBank               # Ana sayfa (hub) — tüm alt sayfalara [[wikilink]]
-├── projectbrief             # Kapsam ve hedefler
-├── productContext           # Neden var, sorunlar, UX hedefleri
-├── systemPatterns           # Mimari, desenler, kararlar
-├── techContext              # Teknolojiler, kurulum, kısıtlar
-├── activeContext            # Güncel odak, son değişiklikler, sonraki adımlar
-├── progress                 # Ne çalışıyor, ne kaldı, bilinen sorunlar
-└── project                  # Proje zekâsı, öğrenilen desenler
+Pages:
+- MemoryBank [[ProjeAdı]]
+- projectbrief (project:: [[ProjeAdı]], parent:: [[MemoryBank]])
+- productContext (project:: [[ProjeAdı]], parent:: [[MemoryBank]])
+- systemPatterns (project:: [[ProjeAdı]], parent:: [[MemoryBank]])
+- techContext (project:: [[ProjeAdı]], parent:: [[MemoryBank]])
+- activeContext (project:: [[ProjeAdı]], parent:: [[MemoryBank]])
+- progress (project:: [[ProjeAdı]], parent:: [[MemoryBank]])
+- project (project:: [[ProjeAdı]], parent:: [[MemoryBank]])
 ```
 
-Günlük notlar (`journals/`) bu sayfalara `[[Projects/<ProjeAdı>/...]]` ile link verir → backlink'ler otomatik oluşur. Günlük düşünce akışı ↔ proje bilgi bankası böylece birbirine bağlanır.
+Günlük notlar (`journals/`) bu sayfalara `[[MemoryBank]]` veya `[[ProjeAdı]]` ile link verir → backlink'ler ve DB ilişkisel filtreleri otomatik oluşur.
 
 ## 4. Sayfa Yapısı (Properties + Wikilink)
 
@@ -61,7 +65,7 @@ Sayfalar arası `[[wikilink]]` ile bağlanır; backlink'ler otomatik üretilir. 
 | `get_pages_tree_from_namespace({namespace: "Projects/<ProjeAdı>"})` | Proje sayfa ağacını listele |
 | `get_page_content({...})` | Bir sayfanın içeriğini oku |
 | `get_page_backlinks({...})` | Hangi sayfalar bu sayfaya link veriyor |
-| `query({...})` | LogSeq QL ile filtreleme (tag, namespace, property) |
+| `query({...})` | LogSeq QL veya DB Query ile filtreleme (`project:: [[ProjeAdı]]`, `parent::`, properties) |
 | `update_block` / `create_block` | AI yazma / güncelleme |
 
 ### 5.2 Fallback — Markdown export (LogSeq kapalıyken)
@@ -114,5 +118,5 @@ Her önemli güncellemeden sonra:
 | Canlı kaynak | LogSeq 2.0 DB (yerel) |
 | Git yedeği | `.project-docs/20_memory-bank/` (Markdown export) |
 | AI erişimi | MCP (birincil) + Markdown (fallback) |
-| Namespace | `Projects/<ProjeAdı>/` |
+| Hiyerarşi / Yapı | `project::`, `parent::` properties + LogSeq 2.0 DB relational queries |
 | Senkronizasyon | Seçenek A (elle); Seçenek B (otomasyon) ileride |
