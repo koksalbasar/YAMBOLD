@@ -76,6 +76,11 @@ OpenCode sohbet penceresine **`00_startup/startup.md` dosyasının tamamını ya
 
 ---
 
+> **Zorunlu Kurallar:**
+> - Tüm sorular ve seçimler **seçim kutuları ile (`( )` radyo düğmesi veya `[ ]` onay kutusu)** sunulur.
+> - Proje verileri, teknik altyapı ve amaç otomatik tespit edilse bile **mutlaka kullanıcıya teyit ettirilir**.
+> - Seçilen MCP sunucuları için **API Key, URL, port, graph adı gibi parametreler kullanıcıya tek tek sorulur**.
+
 ## 4. AI Sizden İsteyeceği Bilgiler (Hazır Olun)
 
 Kurulum sırasında AI şu bilgileri soracak — önceden hazırlayın:

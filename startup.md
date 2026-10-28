@@ -52,13 +52,18 @@ Yeni (veya mevcut) bir projede **OpenCode çalışma ekosistemini** kurar:
 
 ## 2. Kurulum Akışı (Sırayla Uygula)
 
+> **⚠️ KESİN KURALLAR (İstisnası Yoktur):**
+> 1. **Seçim Kutuları:** Kurulum aşamasında kullanıcıdan alınacak veriler mutlaka seçim kutuları ile (**radyo düğmesi `( )`** veya **onay kutusu `[ ]`**) sunulmalıdır.
+> 2. **Teyit Zorunluluğu:** Proje verileri, teknik altyapı, proje amacı vb. **mevcut projeden otomatik tespit edilse bile** kullanıcıya sunularak açıkça onaylatılmalıdır.
+> 3. **MCP Bilgi Toplama:** Paket içindeki MCP sunucuları kurulacaksa ihtiyaç duyulan tüm parametreler (**API Key, URL, port, graph adı vb.**) kullanıcıya tek tek sorulmalıdır.
+
 ### Adım 0 — Proje Aşamasını Belirle
 
-Kullanıcıya **sor**:
+Kullanıcıya mutlaka **radyo düğmeleri `( )`** ile sor:
 
 > Bu proje hangi aşamada?
-> **(1) Başlangıç aşaması** — henüz kod yok veya çok az (greenfield)
-> **(2) İlerlemiş proje** — kod/çerçeve mevcut, üzerine ekosistem kurulacak (brownfield)
+> ( ) **(1) Başlangıç aşaması** — henüz kod yok veya çok az (greenfield)
+> ( ) **(2) İlerlemiş proje** — kod/çerçeve mevcut, üzerine ekosistem kurulacak (brownfield)
 
 Bu seçim, sonraki adımların davranışını belirler:
 - **(1) Başlangıç:** Her şey sıfırdan kurulur; çakışma taraması kısa tutulur.
@@ -66,11 +71,10 @@ Bu seçim, sonraki adımların davranışını belirler:
 
 ---
 
-### Adım 1 — Proje Tespiti
+### Adım 1 — Proje Tespiti ve Teyidi
 
-Projenin **tipi, çerçevesi, dili, runtime'ı ve paket yöneticisini** tespit et. Bunun için kökteki işaret dosyalarına bak (bkz. **Bölüm 8 — Tespit Kuralları**).
-
-Tespit edilemeyen / belirsiz kalan bilgileri **kullanıcıya sor** (ör. proje adı, amacı, hedefleri). Tespit sonuçlarını kullanıcıya göster ve onaylat.
+1. Projenin **tipi, çerçevesi, dili, runtime'ı ve paket yöneticisini** tespit et (bkz. **Bölüm 8 — Tespit Kuralları**).
+2. **Zorunlu Teyit:** Tespit edilen veya edilmeyen tüm proje bilgileri (proje adı, türü, dili, çerçevesi, amacı, hedefleri) kullanıcıya açıkça listelenir ve radyo/onay kutuları ile **teyit ettirilir**. Otomatik tespit asla tek başına yeterli değildir; kullanıcı onay vermeden sonraki adıma geçilmez.
 
 ---
 
@@ -86,11 +90,11 @@ Tespit edilemeyen / belirsiz kalan bilgileri **kullanıcıya sor** (ör. proje a
 | Memory Bank dosyaları | var mı? |
 | `.gitignore` | var mı? |
 
-Mevcut her varlık için kullanıcıya **üç seçenek** sun (önerini belirt):
+Mevcut her varlık için kullanıcıya **radyo düğmeleriyle `( )`** üç seçenek sun (önerini belirt):
 
-1. **Atla** — mevcut olanı koru, dokunma (raporla).
-2. **Yedekle + üzerine yaz** — önce `_backup/` altına kopyala, sonra yenisiyle değiştir.
-3. **Birleştir** — mevcut içerikle yeni şablonu uyumlu şekilde birleştir.
+( ) 1. **Atla** — mevcut olanı koru, dokunma (raporla).
+( ) 2. **Yedekle + üzerine yaz** — önce `_backup/` altına kopyala, sonra yenisiyle değiştir.
+( ) 3. **Birleştir** — mevcut içerikle yeni şablonu uyumlu şekilde birleştir.
 
 > **ZORUNLU:** Kullanıcı karar vermeden hiçbir mevcut dosya değiştirilmez. Varsayılan davranış asla "sessizce üzerine yazma" değildir.
 
@@ -98,7 +102,7 @@ Mevcut her varlık için kullanıcıya **üç seçenek** sun (önerini belirt):
 
 ### Adım 3 — Modül Seçimi
 
-Kullanıcıya kurulacak modülleri bir **kontrol listesi** olarak sun (bkz. **Bölüm 6 — Modül Kataloğu**). Zorunlu (core) modüller her zaman kurulur; opsiyonel olanlar kullanıcının seçimine göre.
+Kullanıcıya kurulacak modülleri **onay kutuları `[ ]`** içeren bir kontrol listesi olarak sun (bkz. **Bölüm 6 — Modül Kataloğu**). Zorunlu (core) modüller her zaman kurulur; opsiyonel olanlar kullanıcının seçimine göre `[x]` işaretlenir.
 
 Her modül için: kısa açıklama + ne yüklediği + (varsa) bağımlılığı. Kullanıcının seçimlerini kaydet ve sonraki adımlarda yalnızca seçilenleri kur.
 
@@ -112,13 +116,13 @@ Seçilen modüllere göre ilgili alt dizinleri de aç (ör. metodoloji seçilmed
 
 ---
 
-### Adım 5 — Üçüncü Taraf Kurulumları
+### Adım 5 — Üçüncü Taraf Kurulumları ve MCP Yapılandırması
 
 Seçilen üçüncü taraf modüller için `00_startup/third-party-manifest.md` dosyasını oku ve oradaki **Kaynak** bilgilerine göre **en güncel sürümü** kur:
 
 - npm tabanlı → `npm i -D <paket>` (son sürüm otomatik çekilir).
 - GitHub tabanlı skill → ilgili repodan istenen `SKILL.md` klasörünü `.opencode/skills/<skill-adı>/` altına kopyala.
-- MCP → `opencode.json` içinde gerekli `mcp` bloğunu, resmî kaynaktan doğrulanmış `command`/`args`/`env` ile yaz.
+- **MCP Sunucuları:** `opencode.json` içinde gerekli `mcp` bloğunu yaz. **Zorunlu Kural:** Kurulacak her MCP sunucusu için gerekli parametreler (**API Key, URL, port, graph adı vb.**) kullanıcıya ayrı ayrı sorularak toplanır ve konfigürasyona işlenir. Asla varsayılan boş veya sahte değerler yazılmaz.
 
 > Kaynak ulaşılamazsa **elle kurulum** alternatifini sun; sessizce eski sürüm kurma.
 

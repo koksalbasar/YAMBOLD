@@ -21,6 +21,11 @@ Bu depo, **herhangi bir yeni (veya mevcut) projeye** şunları tek seferde kurma
 
 ## 🚀 Hızlı Başlangıç (Yeni Proje İçin)
 
+> **Zorunlu Kurallar:**
+> - Kurulum sırasında tüm kullanıcı seçimleri **seçim kutuları (`( )` radyo / `[ ]` onay kutusu)** ile yapılır.
+> - Tespit edilen proje bilgileri ve altyapı **otomatik tespit edilse bile kullanıcıya teyit ettirilir**.
+> - Seçilen MCP sunucuları için **API Key, URL, port, graph adı gibi gereksinimler kullanıcıya tek tek sorulur**.
+
 ```bash
 # 1. Proje klasörü oluştur ve git init
 mkdir yeni-proje && cd yeni-proje && git init
